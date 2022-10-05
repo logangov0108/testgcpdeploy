@@ -32,6 +32,7 @@ using Microsoft.AspNetCore.Hosting;
 
 #if !DEBUG
      WebApplicationBuilder? builder = null;
+     builder = WebApplication.CreateBuilder(args);
     builder.WebHost.UseUrls("http://*:8080", "https://*:443"); 
       builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
