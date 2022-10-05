@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 
 
 #if DEBUG
-    WebApplicationBuilder builder;
+    WebApplicationBuilder? builder = null;
     builder = WebApplication.CreateBuilder(args);
     // Add services to the container.
 
@@ -31,7 +31,7 @@ using Microsoft.AspNetCore.Hosting;
 
 
 #if !DEBUG
-     WebApplicationBuilder builder;
+     WebApplicationBuilder? builder = null;
     builder.WebHost.UseUrls("http://*:8080", "https://*:443"); 
       builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
