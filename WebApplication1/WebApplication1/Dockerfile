@@ -11,7 +11,7 @@ WORKDIR /src
 #COPY . WebApplication1/
 #RUN dotnet restore "WebApplication1/WebApplication1.csproj"
 
-COPY ["WebApplication1.csproj", "."]
+COPY ["WebApplication1.csproj", "WebApplication1/"]
 RUN dotnet restore "./WebApplication1.csproj"
 
 COPY . .
