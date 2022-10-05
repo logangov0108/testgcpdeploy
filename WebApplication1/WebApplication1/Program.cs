@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Hosting;
         app.UseSwaggerUI();
     }
 
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
 
     app.UseAuthorization();
 
@@ -48,7 +48,7 @@ using Microsoft.AspNetCore.Hosting;
         app.UseSwaggerUI();
     }
 
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
 
     app.UseAuthorization();
 
