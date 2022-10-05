@@ -1,27 +1,22 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
+WORKDIR /source
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-
-#COPY . WebApplication1/
-#RUN dotnet restore "WebApplication1/WebApplication1.csproj"
-
-COPY *.csproj ./
+# copy csproj and restore as distinct layers
+COPY *.sln .
+COPY WebApplication1/*.csproj ./WebApplication1/
 RUN dotnet restore
 
-COPY . .
-WORKDIR "/src/."
-RUN dotnet build -c Release -o /app/build
+# copy everything else and build app
+COPY WebApplication1/. ./WebApplication1/
+WORKDIR /source/WebApplication1
+RUN dotnet publish -c release -o /app --no-restore
 
-FROM build AS publish
-RUN dotnet publish  -c Release -o /app/publish /p:UseAppHost=false -v d
-
-FROM base AS final
+# final stage/image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "/app/WebApplication1.dll"]
+COPY --from=build /app ./
+ENTRYPOINT ["dotnet", "WebApplication1.dll"]
