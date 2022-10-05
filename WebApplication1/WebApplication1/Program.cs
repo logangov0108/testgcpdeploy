@@ -1,4 +1,17 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Hosting;
+
+WebApplicationBuilder builder;
+#if DEBUG
+    builder = WebApplication.CreateBuilder(args);
+#endif
+
+
+#if !DEBUG
+      
+    builder.WebHost.UseUrls("http://*:8080", "https://*:443"); 
+
+#endif
+
 
 // Add services to the container.
 
